@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import tkinter as tk
+
 import mainmenu, gamemenu, pausemenu 
 
 class DiscDashGame(ctk.CTk):
@@ -17,7 +18,7 @@ class DiscDashGame(ctk.CTk):
 
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
-
+        
         self.main_menu = mainmenu.Frame(self)
         self.game_menu = gamemenu.Frame(self)
         self.pause_menu = pausemenu.Frame(self)

@@ -3,6 +3,7 @@ import tkinter as tk
 import tkinter.font as tkFont
 import math
 from PIL import Image
+import webbrowser
 
 import baseframe
 
@@ -26,15 +27,19 @@ class PlayButton(ctk.CTkButton):
         playbutton_img_enter = ctk.CTkImage(light_image=Image.open(".\\images\\playbutton_img.png"), dark_image=Image.open(".\\images\\playbutton_img.png"), size=(185, 185))
         playbutton_img_leave = ctk.CTkImage(light_image=Image.open(".\\images\\playbutton_img.png"), dark_image=Image.open(".\\images\\playbutton_img.png"), size=(165, 165))
 
-        super().__init__(master=master, text="", image=playbutton_img_leave, height=175, width=175, hover=False, bg_color="transparent", fg_color="transparent", corner_radius=20, command=self.change_frame)
+        super().__init__(master=master, text="", image=playbutton_img_leave, height=175, width=175, hover=False, bg_color="transparent", fg_color="transparent", corner_radius=20, command=self.start_game)
 
         self.bind("<Enter>", lambda e: self.configure(height=195, width=195, image=playbutton_img_enter))
         self.bind("<Leave>", lambda e: self.configure(height=175, width=175, image=playbutton_img_leave))
+        self.winfo_toplevel().bind("<Return>", lambda e: self.start_game())
 
-    def change_frame(self):
-        self.winfo_toplevel().main_menu.keep_updating = False
+    def start_game(self):
+        self.winfo_toplevel().main_menu.stop_updating()
+        self.winfo_toplevel().game_menu.start_updating()
         self.winfo_toplevel().main_menu.hide()
         self.winfo_toplevel().game_menu.show()
+        self.winfo_toplevel().bind("<Escape>", lambda e: self.winfo_toplevel().game_menu.pause_button.pause_game())
+        self.winfo_toplevel().unbind("<Return>")
 
 class QuitButton(ctk.CTkButton):
     def __init__(self, master):
@@ -45,20 +50,21 @@ class QuitButton(ctk.CTkButton):
 
         self.bind("<Enter>", lambda e: self.configure(image=exitbutton_img_enter))
         self.bind("<Leave>", lambda e: self.configure(image=exitbutton_img_leave))
+        self.winfo_toplevel().bind("<Escape>", lambda e: self.quit_game())
 
     def quit_game(self):
         if tk.messagebox.askyesno("Quit", "Are you sure you want to exit the game?", default="no"):
             self.winfo_toplevel().destroy()
 
-class InfoButton(ctk.CTkButton):
+class AboutButton(ctk.CTkButton):
     def __init__(self, master):
-        infobutton_img_enter = ctk.CTkImage(light_image=Image.open(".\\images\\infobutton_img.png"), dark_image=Image.open(".\\images\\infobutton_img.png"), size=(50, 50))
-        infobutton_img_leave = ctk.CTkImage(light_image=Image.open(".\\images\\infobutton_img.png"), dark_image=Image.open(".\\images\\infobutton_img.png"), size=(45, 45))
+        aboutbutton_img_enter = ctk.CTkImage(light_image=Image.open(".\\images\\aboutbutton_img.png"), dark_image=Image.open(".\\images\\aboutbutton_img.png"), size=(50, 50))
+        aboutbutton_img_leave = ctk.CTkImage(light_image=Image.open(".\\images\\aboutbutton_img.png"), dark_image=Image.open(".\\images\\aboutbutton_img.png"), size=(45, 45))
 
-        super().__init__(master=master, text="", height=55, width=55, hover=False, image=infobutton_img_leave, bg_color="transparent", fg_color="transparent")
+        super().__init__(master=master, text="", height=55, width=55, hover=False, image=aboutbutton_img_leave, bg_color="transparent", fg_color="transparent", command=lambda: [webbrowser.open("https://github.com/saiyam-sandhir/Disc_Dash-Game")])
 
-        self.bind("<Enter>", lambda e: self.configure(image=infobutton_img_enter))
-        self.bind("<Leave>", lambda e: self.configure(image=infobutton_img_leave))
+        self.bind("<Enter>", lambda e: self.configure(image=aboutbutton_img_enter))
+        self.bind("<Leave>", lambda e: self.configure(image=aboutbutton_img_leave))
 
 class SettingsButton(ctk.CTkButton):
     def __init__(self, master):
@@ -83,17 +89,23 @@ class Frame(baseframe.Frame):
         quit_button = QuitButton(self)
         quit_button.place(relx=0.51, rely=0.7, anchor=ctk.CENTER)
 
-        info_button = InfoButton(self)
-        info_button.place(relx=0.075, rely=0.925, anchor=ctk.CENTER)
+        about_button = AboutButton(self)
+        about_button.place(relx=0.075, rely=0.925, anchor=ctk.CENTER)
 
         settings_button = SettingsButton(self)
         settings_button.place(relx=0.925, rely=0.925, anchor=ctk.CENTER)
 
+        self.start_updating()
+
+    def update_frame(self):
+        if self.keep_updating:
+            self.header.levitate_label()
+            
+            self.winfo_toplevel().after(1, self.update_frame)
+
+    def start_updating(self):
         self.keep_updating = True
         self.update_frame()
 
-    def update_frame(self):
-        self.header.levitate_label()
-
-        if self.keep_updating:
-            self.winfo_toplevel().after(1, self.update_frame)
+    def stop_updating(self):
+        self.keep_updating = False
