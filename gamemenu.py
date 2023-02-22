@@ -26,7 +26,7 @@ class Enemy(turtle.RawTurtle):
         self.speed += self.acceleration
 
         if self.distance(self.player) <= 20:
-            stop_updating_func()
+            stop_updating_func(game_over=True)
 
         if self.xcor() >= 366.6499999999997 and self.ycor() >= 60:
             self.reset()
@@ -148,11 +148,12 @@ class ScoreBoard(ctk.CTkFrame):
 
         super().__init__(master=master, corner_radius=30, bg_color="transparent", fg_color="transparent")
 
-        curr_score = ctk.CTkLabel(self, text=f"Current Score: {self.score}", bg_color="transparent", fg_color="transparent", text_color="brown", font=("Freehand521 BT", 20, "bold"))
-        curr_score.pack(fill=tk.BOTH, expand=True)
+        self.curr_score = ctk.CTkLabel(self, text=f"Current Score: {self.score}", bg_color="transparent", fg_color="transparent", text_color="brown", font=("Freehand521 BT", 20, "bold"))
+        self.curr_score.pack(fill=tk.BOTH, expand=True)
 
-        high_score = ctk.CTkLabel(self, text=f"High Score: {self.score}", bg_color="transparent", fg_color="transparent", text_color="brown", font=("Freehand521 BT", 20, "bold"))
-        high_score.pack(fill=tk.BOTH, expand=True)
+    def update_score(self):
+        self.score += 1
+        self.curr_score.configure(text=f"Current Score: {self.score}")
 
 class Frame(baseframe.Frame):
     def __init__(self, master):
@@ -164,20 +165,27 @@ class Frame(baseframe.Frame):
         self.pause_button = PauseButton(self)
         self.pause_button.place(relx=0.075, rely=0.065, anchor=tk.CENTER)
 
-        score_board = ScoreBoard(self)
-        score_board.place(relx=0.5, rely=0.065, anchor=tk.CENTER)
+        self.score_board = ScoreBoard(self)
+        self.score_board.place(relx=0.5, rely=0.065, anchor=tk.CENTER)
 
     def update_frame(self):
         if self.keep_updating:
             self.game_window.player.move()
             for enemy in self.game_window.enemies:
                 enemy.move(self.stop_updating)
+            self.score_board.update_score()
             self.game_window.update_idletasks()
+
             self.winfo_toplevel().after(50, self.update_frame)
 
     def start_updating(self):
         self.keep_updating = True
         self.update_frame()
 
-    def stop_updating(self):
+    def stop_updating(self, game_over=False):
         self.keep_updating = False
+
+        if game_over == True:
+            self.winfo_toplevel().restart_menu.show()
+            self.score_board.curr_score = 0
+

@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
 
-import mainmenu, gamemenu, pausemenu
+import mainmenu, gamemenu, pausemenu, restartmenu
 import audioobjects as audio
 
 class DiscDashGame(ctk.CTk):
@@ -25,6 +25,7 @@ class DiscDashGame(ctk.CTk):
         self.main_menu = mainmenu.Frame(self)
         self.game_menu = gamemenu.Frame(self)
         self.pause_menu = pausemenu.Frame(self)
+        self.restart_menu = restartmenu.Frame(self)
 
         self.main_menu.show()
 
