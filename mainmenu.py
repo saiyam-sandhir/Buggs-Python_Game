@@ -82,7 +82,7 @@ class Frame(baseframe.Frame):
     def __init__(self, master):
         super().__init__(master)
 
-        self.header = LevitatingLabel(master=self, text="Disc-Dash", height=125, width=master.winfo_width() - 2 * self.cget("border_width"), fg_color="transparent", bg_color="transparent", text_color="brown", font=("Freehand521 BT", 115), frequency=1.25)
+        self.header = LevitatingLabel(master=self, text="BUGGS", height=125, width=master.winfo_width() - 2 * self.cget("border_width"), fg_color="transparent", bg_color="transparent", text_color="brown", font=("Freehand521 BT", 115), frequency=1.25)
         self.header.place(relx=0.5, y=((self.header.cget("height") / 2) + self.cget("corner_radius")), anchor=ctk.CENTER)
 
         play_button = PlayButton(self)

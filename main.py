@@ -13,7 +13,7 @@ class DiscDashGame(ctk.CTk):
         SCREEN_WIDTH, SCREEN_HEIGHT = self.winfo_screenwidth(), self.winfo_screenheight()
         WIN_XCOORD, WIN_YCOORD = (SCREEN_WIDTH // 2) - (WINDOW_WIDTH // 2), (SCREEN_HEIGHT // 2) - (WINDOW_HEIGHT // 2)
 
-        self.title("Disc-Dash")
+        self.title("BUGGS")
         self.after(201, lambda: [self.iconbitmap(".\\images\\icon.ico"), self.iconphoto(True, tk.PhotoImage(file=".\\images\\icon.png"))])
         self.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}+{WIN_XCOORD}+{WIN_YCOORD}")
         self.overrideredirect(True)
