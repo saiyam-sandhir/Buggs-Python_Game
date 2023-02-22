@@ -4,6 +4,7 @@ import turtle
 from PIL import Image
 
 import baseframe
+import audioobjects as audio
 
 class TurtleWindow(tk.Canvas):
     def __init__(self, master):
@@ -17,7 +18,7 @@ class PauseButton(ctk.CTkButton):
         pausebutton_img_enter = ctk.CTkImage(light_image=Image.open(".\\images\\pausebutton_img_enter.png"), dark_image=Image.open(".\\images\\pausebutton_img_enter.png"), size=(50, 50))
         pausebutton_img_leave = ctk.CTkImage(light_image=Image.open(".\\images\\pausebutton_img_leave.png"), dark_image=Image.open(".\\images\\pausebutton_img_leave.png"), size=(50, 50))
 
-        super().__init__(master=master, text="", height=55, width=55, hover=False, image=pausebutton_img_leave, bg_color="transparent", fg_color="transparent", command=self.pause_game)
+        super().__init__(master=master, text="", height=55, width=55, hover=False, image=pausebutton_img_leave, bg_color="transparent", fg_color="transparent", command=lambda: [self.pause_game(), audio.on_click.play(0)])
 
         self.bind("<Enter>", lambda e: self.configure(image=pausebutton_img_enter))
         self.bind("<Leave>", lambda e: self.configure(image=pausebutton_img_leave))

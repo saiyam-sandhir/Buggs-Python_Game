@@ -3,6 +3,8 @@ import tkinter as tk
 import webbrowser
 
 import baseframe
+import audioobjects as audio
+from settingswindow import SettingsWindow
 
 class BaseButton(ctk.CTkButton):
     def __init__(self, master, text, command):
@@ -13,7 +15,7 @@ class BaseButton(ctk.CTkButton):
 
 class ResumeButton(BaseButton):
     def __init__(self, master):
-        super().__init__(master=master, text="Resume", command=self.resume_game)
+        super().__init__(master=master, text="Resume", command=lambda: [self.resume_game(), audio.on_click.play(0)])
 
     def resume_game(self):
         self.winfo_toplevel().pause_menu.hide()
@@ -22,18 +24,15 @@ class ResumeButton(BaseButton):
 
 class SettingsButton(BaseButton):
     def __init__(self, master):
-        super().__init__(master=master, text="Settings", command=self.open_settings)
-
-    def open_settings(self):
-        pass
+        super().__init__(master=master, text="Settings", command=lambda: [audio.on_click.play(0), SettingsWindow(master=self.winfo_toplevel())])
 
 class AboutButton(BaseButton):
     def __init__(self, master):
-        super().__init__(master=master, text="About", command=lambda: [webbrowser.open("https://github.com/saiyam-sandhir/Disc_Dash-Game")])
+        super().__init__(master=master, text="About", command=lambda: [webbrowser.open("https://github.com/saiyam-sandhir/Disc_Dash-Game"), audio.on_click.play(0)])
 
 class QuitButton(BaseButton):
     def __init__(self, master):
-        super().__init__(master=master, text="Quit", command=self.quit_game)
+        super().__init__(master=master, text="Quit", command=lambda: [audio.on_click.play(0), self.quit_game()])
 
     def quit_game(self):
         if tk.messagebox.askyesno("Quit", "Are you sure you want to exit the game?", default="no"):

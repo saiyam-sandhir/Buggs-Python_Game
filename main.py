@@ -1,11 +1,14 @@
 import customtkinter as ctk
 import tkinter as tk
 
-import mainmenu, gamemenu, pausemenu 
+import mainmenu, gamemenu, pausemenu
+import audioobjects as audio
 
 class DiscDashGame(ctk.CTk):
     def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT):
         super().__init__()
+
+        audio.bg_music.play(-1)#-1 to keep it looping
 
         SCREEN_WIDTH, SCREEN_HEIGHT = self.winfo_screenwidth(), self.winfo_screenheight()
         WIN_XCOORD, WIN_YCOORD = (SCREEN_WIDTH // 2) - (WINDOW_WIDTH // 2), (SCREEN_HEIGHT // 2) - (WINDOW_HEIGHT // 2)

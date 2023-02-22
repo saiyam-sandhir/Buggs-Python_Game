@@ -6,6 +6,8 @@ from PIL import Image
 import webbrowser
 
 import baseframe
+import audioobjects as audio
+from settingswindow import SettingsWindow
 
 class LevitatingLabel(ctk.CTkFrame):
     def __init__(self, master: baseframe.Frame, text: str, height: float, width: float, fg_color: str, bg_color: str, text_color: str, font: tuple, frequency: float):
@@ -27,7 +29,7 @@ class PlayButton(ctk.CTkButton):
         playbutton_img_enter = ctk.CTkImage(light_image=Image.open(".\\images\\playbutton_img.png"), dark_image=Image.open(".\\images\\playbutton_img.png"), size=(185, 185))
         playbutton_img_leave = ctk.CTkImage(light_image=Image.open(".\\images\\playbutton_img.png"), dark_image=Image.open(".\\images\\playbutton_img.png"), size=(165, 165))
 
-        super().__init__(master=master, text="", image=playbutton_img_leave, height=175, width=175, hover=False, bg_color="transparent", fg_color="transparent", corner_radius=20, command=self.start_game)
+        super().__init__(master=master, text="", image=playbutton_img_leave, height=175, width=175, hover=False, bg_color="transparent", fg_color="transparent", corner_radius=20, command=lambda: [self.start_game(), audio.on_click.play(0)])
 
         self.bind("<Enter>", lambda e: self.configure(height=195, width=195, image=playbutton_img_enter))
         self.bind("<Leave>", lambda e: self.configure(height=175, width=175, image=playbutton_img_leave))
@@ -46,7 +48,7 @@ class QuitButton(ctk.CTkButton):
         exitbutton_img_enter = ctk.CTkImage(light_image=Image.open(".\\images\\exitbutton_img.png"), dark_image=Image.open(".\\images\\exitbutton_img.png"), size=(70, 70))
         exitbutton_img_leave = ctk.CTkImage(light_image=Image.open(".\\images\\exitbutton_img.png"), dark_image=Image.open(".\\images\\exitbutton_img.png"), size=(50, 50))
 
-        super().__init__(master=master, text="", height=80, width=80, hover=False, image=exitbutton_img_leave, bg_color="transparent", fg_color="transparent", corner_radius=20, command=self.quit_game)
+        super().__init__(master=master, text="", height=80, width=80, hover=False, image=exitbutton_img_leave, bg_color="transparent", fg_color="transparent", corner_radius=20, command=lambda: [audio.on_click.play(0), self.quit_game()])
 
         self.bind("<Enter>", lambda e: self.configure(image=exitbutton_img_enter))
         self.bind("<Leave>", lambda e: self.configure(image=exitbutton_img_leave))
@@ -61,7 +63,7 @@ class AboutButton(ctk.CTkButton):
         aboutbutton_img_enter = ctk.CTkImage(light_image=Image.open(".\\images\\aboutbutton_img.png"), dark_image=Image.open(".\\images\\aboutbutton_img.png"), size=(50, 50))
         aboutbutton_img_leave = ctk.CTkImage(light_image=Image.open(".\\images\\aboutbutton_img.png"), dark_image=Image.open(".\\images\\aboutbutton_img.png"), size=(45, 45))
 
-        super().__init__(master=master, text="", height=55, width=55, hover=False, image=aboutbutton_img_leave, bg_color="transparent", fg_color="transparent", command=lambda: [webbrowser.open("https://github.com/saiyam-sandhir/Disc_Dash-Game")])
+        super().__init__(master=master, text="", height=55, width=55, hover=False, image=aboutbutton_img_leave, bg_color="transparent", fg_color="transparent", command=lambda: [webbrowser.open("https://github.com/saiyam-sandhir/Disc_Dash-Game"), audio.on_click.play(0)])
 
         self.bind("<Enter>", lambda e: self.configure(image=aboutbutton_img_enter))
         self.bind("<Leave>", lambda e: self.configure(image=aboutbutton_img_leave))
@@ -71,7 +73,7 @@ class SettingsButton(ctk.CTkButton):
         settingsbutton_img_enter = ctk.CTkImage(light_image=Image.open(".\\images\\settingsbutton_img.png"), dark_image=Image.open(".\\images\\settingsbutton_img.png"), size=(50, 50))
         settingsbutton_img_leave = ctk.CTkImage(light_image=Image.open(".\\images\\settingsbutton_img.png"), dark_image=Image.open(".\\images\\settingsbutton_img.png"), size=(45, 45))
 
-        super().__init__(master=master, text="", height=55, width=55, hover=False, image=settingsbutton_img_leave, bg_color="transparent", fg_color="transparent")
+        super().__init__(master=master, text="", height=55, width=55, hover=False, image=settingsbutton_img_leave, bg_color="transparent", fg_color="transparent", command=lambda: [audio.on_click.play(0), SettingsWindow(master=self.winfo_toplevel())])
 
         self.bind("<Enter>", lambda e: self.configure(image=settingsbutton_img_enter))
         self.bind("<Leave>", lambda e: self.configure(image=settingsbutton_img_leave))
