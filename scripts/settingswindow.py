@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Saiyam Jain
+
 from tkinter import Toplevel
 import customtkinter as ctk
 from PIL import Image

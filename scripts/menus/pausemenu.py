@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Saiyam Jain
+
 import customtkinter as ctk
 import tkinter as tk
 import webbrowser

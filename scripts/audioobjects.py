@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Saiyam Jain
+
 from pygame import mixer
 import configparser
 

@@ -1,3 +1,5 @@
+# Copyright (c) 2023 Saiyam Jain
+
 import customtkinter as ctk
 
 class Frame(ctk.CTkFrame):
