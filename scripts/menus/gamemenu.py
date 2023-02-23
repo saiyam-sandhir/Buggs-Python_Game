@@ -143,17 +143,16 @@ class PauseButton(ctk.CTkButton):
 
 class ScoreBoard(ctk.CTkFrame):
     def __init__(self, master):
-        self.score = 0
-        self.high_score = 0
+        self.score_value = 0
 
         super().__init__(master=master, corner_radius=30, bg_color="transparent", fg_color="transparent")
 
-        self.curr_score = ctk.CTkLabel(self, text=f"Current Score: {self.score}", bg_color="transparent", fg_color="transparent", text_color="brown", font=("Freehand521 BT", 20, "bold"))
-        self.curr_score.pack(fill=tk.BOTH, expand=True)
+        self.scorelabel = ctk.CTkLabel(self, text=f"Current Score: {self.score_value}", bg_color="transparent", fg_color="transparent", text_color="brown", font=("Freehand521 BT", 20, "bold"))
+        self.scorelabel.pack(fill=tk.BOTH, expand=True)
 
     def update_score(self):
-        self.score += 1
-        self.curr_score.configure(text=f"Current Score: {self.score}")
+        self.score_value += 1
+        self.scorelabel.configure(text=f"Current Score: {self.score_value}")
 
 class Frame(baseframe.Frame):
     def __init__(self, master):
@@ -187,5 +186,5 @@ class Frame(baseframe.Frame):
 
         if game_over == True:
             self.winfo_toplevel().restart_menu.show()
-            self.score_board.curr_score = 0
+            self.score_board.score_value = 0
 

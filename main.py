@@ -1,7 +1,12 @@
 import customtkinter as ctk
 import tkinter as tk
+import sys
+import os
 
-import mainmenu, gamemenu, pausemenu, restartmenu
+scripts = os.path.abspath(os.path.join(os.path.dirname(__file__), 'scripts'))
+sys.path.append(scripts)
+
+from menus import mainmenu, gamemenu, pausemenu, restartmenu
 import audioobjects as audio
 
 class DiscDashGame(ctk.CTk):
