@@ -33,7 +33,7 @@
 
 </br>
 
-<h2 id = "Requirements">Requirements</h2>
+<h2>Requirements</h2>
 
 - Python 3.x
 - tkinter
