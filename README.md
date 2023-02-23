@@ -10,6 +10,12 @@
 
 <h2>Preview</h2>
 
+![1](https://user-images.githubusercontent.com/86138251/220828600-61ea8bc3-24e4-4f0a-bab7-4733641ac338.png)
+![2](https://user-images.githubusercontent.com/86138251/220828614-be527c28-d02d-4572-afea-0b77d6a832ad.png)
+![3](https://user-images.githubusercontent.com/86138251/220828618-92c91998-4c8d-488f-80f9-5841e2e965c3.png)</br>
+![4](https://user-images.githubusercontent.com/86138251/220828630-c46dc4c4-5bd8-4558-8bcc-6159cc67f197.png)</br>
+![5](https://user-images.githubusercontent.com/86138251/220828638-7203083e-e06a-4c0a-807c-c00f3f1f5bed.png)
+
 </br>
 
 <h2>Features</h2>
